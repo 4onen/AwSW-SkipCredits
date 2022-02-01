@@ -1,8 +1,7 @@
 from modloader.modclass import Mod, loadable_mod
-import jz_magmalink as ml
+import modloader.modinfo as modinfo
 
-
-def adine_endings():
+def adine_endings(ml):
     ( ml.find_label('_call_endingjustafewminuteslater_4')
         .search_python('renpy.block_rollback()', depth=600)
         .hook_to('skipcredits_four_adine5bad_credits_start')
@@ -20,7 +19,7 @@ def adine_endings():
     )
 
 
-def anna_endings():
+def anna_endings(ml):
     ( ml.find_label('_call_endingjustafewminuteslater_1')
         .search_python('renpy.block_rollback()', depth=600)
         .hook_to('skipcredits_four_anna5bad_credits_start')
@@ -38,7 +37,7 @@ def anna_endings():
     )
 
 
-def bryce_endings():
+def bryce_endings(ml):
     ( ml.find_label('_call_sincethelightswerealreadyon')
         .search_python('renpy.block_rollback()', depth=600)
         .hook_to('skipcredits_four_bryce5bad_credits_start')
@@ -56,7 +55,7 @@ def bryce_endings():
     )
 
 
-def lorem_endings():
+def lorem_endings(ml):
     ( ml.find_label('loremgoodending2')
         .search_python('renpy.block_rollback()', depth=600)
         .hook_to('skipcredits_four_lorem5bad_credits_start')
@@ -74,7 +73,7 @@ def lorem_endings():
     )
 
 
-def neutral_ending():
+def neutral_ending(ml):
     ( ml.find_label('_call_endingjustafewminuteslater')
         .search_python('renpy.block_rollback()', depth=600)
         .hook_to('skipcredits_four_neutral_credits_start')
@@ -84,7 +83,7 @@ def neutral_ending():
     )
 
 
-def remy_endings():
+def remy_endings(ml):
     ( ml.find_label('_call_endingjustafewminuteslater_2')
         .search_python('renpy.block_rollback()', depth=700)
         .hook_to('skipcredits_four_remy5bad_credits_start')
@@ -102,7 +101,7 @@ def remy_endings():
     )
 
 
-def true_ending():
+def true_ending(ml):
     ( ml.find_label('trueendings')
         .search_python('renpy.block_rollback()', depth=2100)
         .hook_to('skipcredits_four_trueending_credits_start')
@@ -121,13 +120,14 @@ class MyAwSWMod(Mod):
 
     @staticmethod
     def mod_load():
-        adine_endings()
-        anna_endings()
-        bryce_endings()
-        lorem_endings()
-        neutral_ending()
-        remy_endings()
-        true_ending()
+        ml = modinfo.get_mods()["MagmaLink"].import_ml()
+        adine_endings(ml)
+        anna_endings(ml)
+        bryce_endings(ml)
+        lorem_endings(ml)
+        neutral_ending(ml)
+        remy_endings(ml)
+        true_ending(ml)
 
     @staticmethod
     def mod_complete():
